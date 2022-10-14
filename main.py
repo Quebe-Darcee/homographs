@@ -84,15 +84,32 @@ def canonicalization(file_path, Full_File_Path):
     file_path = dot(file_path, Full_File_Path)
 
     # Two dots .. in any part of file (../secret/password.txt)
-
+    """If (two dots)
+        if the two dots start the string folderName = secret
+        else
+        folderName = seperate between / and /.. (eg: /home/user/../secret would assign "user" to folderName)
+        getOneFolderUp(fileName)
+        delete the /.. from the string
+        delete the previous working directiory from the string (eg: in the above case, the string would read /home/secret after this point)
+        return
+    """
     # One dot in any part of file (/home/user/secret/./password.txt)
-
+    """
+    If /. is the first character, replace it with home/user/secret
+    else just delete it because it refers to the current directory
+    """
     # Two // in file 
     
     # No / at start of file (password.txt)
     #file_path = Full_File_Path + file_path1
     return file_path
 
+def getOneFolderUp(folderName):
+    """ if folderName = "home" return "/"
+        If folderName = "user" return "home"
+        if folderName = "secret" return "user"
+        else throw error or ask for the previous folder and return
+    """
 
 
 
