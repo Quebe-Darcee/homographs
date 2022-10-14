@@ -1,0 +1,17 @@
+--Homographs--
+password.txt
+/home/user/secret/password.txt
+./password.txt
+./user/secret/password.txt
+../password.txt
+../secret/password.txt
+~/secret/password (~ represents the user folder in linux file systems)
+
+--Non Homographs--
+pasword.txt
+/home/user/Secret/Password.txt
+../user/secret.txt
+../../secret/password.txt
+./secret/password.txt
+
+All filepaths assume the current working directory is /home/user/secret/
