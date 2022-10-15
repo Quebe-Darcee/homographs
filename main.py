@@ -61,7 +61,7 @@
 """
 
 from contextlib import nullcontext
-
+from homographs.canonicalize import canonicalize
 
 def manual_test(Full_File_Path):
     # Get both the file paths then run
@@ -95,9 +95,9 @@ def test_cases(Full_File_Path):
 
 
 def run_test(file_path1, file_path2, Full_File_Path):
-    file_path1 = canonicalization(file_path1, Full_File_Path)
-    file_path2 = canonicalization(file_path2, Full_File_Path)
-    
+    home_directory = "/home"
+    file_path1 = canonicalize(file_path1, Full_File_Path, home_directory)
+    file_path2 = canonicalize(file_path2, Full_File_Path, home_directory)
     # Compare the two final full file paths
     print("\nCanonicalized file paths:")
     print(file_path1)
