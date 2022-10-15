@@ -1,12 +1,12 @@
 Path Homograph
 
 --Constructs--
-./ -Current folder
-../ -Up one folder
-~/ -Home folder
-Caps Sensitivity
-Different starting folder
-unknown filepaths
+    ./ -Current folder
+    ../ -Up one folder
+    ~/ -Home folder
+    Caps Sensitivity
+    Different starting folder
+    unknown filepaths
 
 --Test Cases--
 
