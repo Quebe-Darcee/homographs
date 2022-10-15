@@ -67,7 +67,7 @@ def manual_test(Full_File_Path):
     run_test(file_path1, file_path2, Full_File_Path)
 
 def test_cases(Full_File_Path):
-    homographs = ["password.txt", "~/secret/password.txt", "/~/secret/password.txt","./password.txt", "../secret/password.txt", "~/random/../secret/password.txt", "./user/secret/password.txt", "./././user/secret/password.txt", "./../secret/password.txt", "../../user/secret/password.txt", "~/../user/secret/password.txt", "./Password/../password.txt"]
+    homographs = ["password.txt", "~/secret/password.txt", "/~/secret/password.txt","./password.txt", "../secret/password.txt", "./user/secret/password.txt", "./././user/secret/password.txt", "./../secret/password.txt", "../../user/secret/password.txt", "~/../user/secret/password.txt", "./Password/../password.txt"]
     non_homographs = ["/../../random/foldername/password.txt", "~/folder/randomname/password.txt", "~/Secret/../secret/password.txt", "./secret/password.txt", "home/user/Secret/Password.txt", "passWord.txt", "~/password.txt", "../user/secret.txt", "../../secret/password.txt", "./secret/password.txt", "./home/secret/password.txt", "~/../password.txt", "./user/secret/password.txt"]
     forbidden_file = "/home/user/secret/password.txt"
 
@@ -96,7 +96,7 @@ def run_test(file_path1, file_path2, Full_File_Path):
     file_path2 = canonicalization(file_path2, Full_File_Path)
     
     # Compare the two final full file paths
-    print("\nCanonicalized file paths")
+    print("\nCanonicalized file paths:")
     print(file_path1)
     print(file_path2)
     # Check if the full file paths are equal
@@ -127,9 +127,9 @@ def dot(file_path, Full_File_Path):
     # Error if file name is less than 2 characters
     if len(file_path) > 2:
         # if the first two characters are "./"
-        if file_path[0] + file_path[1] == './':
+        while file_path[0] + file_path[1] == './':
             # Remove ./ from the string 
-            file_path = Full_File_Path + file_path[2:]
+            file_path = file_path[2:]
     return(file_path)
 
 def two_dots(file_path, Full_File_Path):
@@ -189,7 +189,14 @@ def canonicalization(file_path, Full_File_Path):
     
     # No / at start of file (password.txt)
     if file_path[0] != "/":
-        file_path = Full_File_Path + file_path
+        if file_path[:4] == "home":
+            file_path = "/" + file_path
+        elif file_path[:4] == "user":
+            file_path = Full_File_Path.split("user")[0] + file_path
+        elif file_path[:6] == "secret":
+            file_path = Full_File_Path.split("secret")[0] + file_path
+        else:
+            file_path = Full_File_Path + file_path
     return file_path
 
 def getOneFolderUp(folderName):
