@@ -14,6 +14,10 @@ Path Homograph
     
     unknown filepaths
 
+-- Canon --
+
+    /home/user/secret/password.txt
+
 --Test Cases--
 
     -- ./ --
@@ -38,26 +42,27 @@ Path Homograph
         ~/password.txt
         Homographs
         ~/secret/password
+
     -- Caps Sensitivity --
         Non-Homographs
         /home/user/Secret/Password.txt
         passWord.txt
 
         Homographs
-        
+        ~/Secret/../secret/password.txt
+
     -- Start Folder --
         Non-Homographs
         ./secret/password.txt
 
         Homographs
         password.txt
-        /home/user/secret/password.txt
 
     -- Unknown Folders --
         Non-Homographs
-        /../../random/foldername/password.txt
-        /folder/randomname/password.txt
+        ../../random/foldername/password.txt
+        ~/folder/randomname/password.txt
         
         Homographs
-
+        /~/random/../secret/password.txt
 
