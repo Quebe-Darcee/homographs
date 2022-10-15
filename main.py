@@ -68,7 +68,7 @@ def manual_test(Full_File_Path):
 
 def test_cases(Full_File_Path):
     homographs = ["password.txt", "~/secret/password.txt", "/~/secret/password.txt","./password.txt", "../secret/password.txt", "./user/secret/password.txt", "./././user/secret/password.txt", "./../secret/password.txt", "../../user/secret/password.txt", "~/../user/secret/password.txt", "./Password/../password.txt"]
-    non_homographs = ["/../../random/foldername/password.txt", "~/folder/randomname/password.txt", "~/Secret/../secret/password.txt", "./secret/password.txt", "home/user/Secret/Password.txt", "passWord.txt", "~/password.txt", "../user/secret.txt", "../../secret/password.txt", "./secret/password.txt", "./home/secret/password.txt", "~/../password.txt", "./user/secret/password.txt"]
+    non_homographs = ["/../../random/foldername/password.txt", "~/folder/randomname/password.txt", "~/Secret/../secret/password.txt", "./secret/password.txt", "home/user/Secret/Password.txt", "passWord.txt", "~/password.txt", "../user/secret.txt", "../../secret/password.txt", "./secret/password.txt", "./home/secret/password.txt", "~/../password.txt", "./user/secret/password.txt", "../../../home/user/secret/password.txt"]
     forbidden_file = "/home/user/secret/password.txt"
 
     print("\nTESTING HOMOGRAPHS")
@@ -134,18 +134,18 @@ def dot(file_path, Full_File_Path):
 
 def two_dots(file_path, Full_File_Path):
     # ../../.. starts the path
-    if file_path[:7] == "../../..":
+    if file_path[:8] == "../../..":
         print("Error: Cannot go above home directory. Assumed starting directory is: /home/user/secret/")
     # ../../ starts the path
-    if file_path[:4] == "../..":
+    if file_path[:5] == "../..":
         # Split to /home
-        modified_file_path = Full_File_Path.split("/user")[0]
-        file_path = modified_file_path + file_path[5:]
+        modified_file_path = Full_File_Path.split("user")[0]
+        file_path = modified_file_path + file_path[6:]
     # .. is start of file path
-    if file_path[:1] == "..":
+    if file_path[:2] == "..":
         # Split the file path to /home/user
-        modified_file_path = Full_File_Path.split("/secret")[0]
-        file_path = modified_file_path + file_path[2:]
+        modified_file_path = Full_File_Path.split("secret")[0]
+        file_path = modified_file_path + file_path[3:]
     return file_path
 
 
