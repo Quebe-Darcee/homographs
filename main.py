@@ -152,24 +152,24 @@ def two_dots(file_path, Full_File_Path):
         file_path = modified_file_path + file_path[3:]
     elif (upCount > 0):
         seqUpCounts = 0 #The number of folders we must go up for one row of ../../'s
-        prevIsDot = false
-        prevIsDouble = false
+        prevIsDot = False
+        prevIsDouble = False
         numFolders = 0
         upCountStart = 0
         for x in file_path:
-            if x == "." & prevIsDot == true: #if this and the previous index are dots
+            if x == "." & prevIsDot == True: #if this and the previous index are dots
                 seqUpCounts += 1
-                prevIsDouble = true
-            elif x == "." & prevIsDot == false: # if this one but not the last are dots
-                prevIsDot = true
+                prevIsDouble = True
+            elif x == "." & prevIsDot == False: # if this one but not the last are dots
+                prevIsDot = True
             elif x == "/": # slashes are used to count the folders weve passed through and mark where we start counting up
                 prevIsDot = False
                 if seqUpCounts == 1:
                     upCountStart = numFolders
                 numFolders += 1
             else: # If not a slash or a dot, reset the
-                prevIsDot = false
-                prevIsDouble = false
+                prevIsDot = False
+                prevIsDouble = False
                 if seqUpCounts > 0:
                     modified_file_path = Full_File_Path.split("/")[upCountStart] # not sure how but we need to split in two at the start of the upCount
 
