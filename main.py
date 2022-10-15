@@ -1,21 +1,52 @@
 """
---Non Homographs--
-pasword.txt
-/home/user/Secret/Password.txt
-../user/secret.txt
-../../secret/password.txt
-./secret/password.txt
+--Test Cases--
 
---Homographs--
-password.txt
-/home/user/secret/password.txt
-./password.txt
-./user/secret/password.txt
-../password.txt
-../secret/password.txt
-~/secret/password (~ represents the user folder in linux file systems)
+    -- ./ --
+        Non-Homographs
+        ./secret/password.txt
 
-All filepaths assume the current working directory is /home/user/secret/
+        HomoGraphs
+        ./password.txt
+        ./user/secret/password.txt
+        
+    -- ../ --
+        Non-Homographs
+        ../user/secret.txt
+        ../../secret/password.txt
+
+        Homographs
+        ../password.txt
+        ../secret/password.txt
+
+    -- ~/ --
+        Non-Homographs
+        ~/password.txt
+        Homographs
+        ~/secret/password
+    -- Caps Sensitivity --
+        Non-Homographs
+        /home/user/Secret/Password.txt
+        passWord.txt
+
+        Homographs
+        
+    -- Start Folder --
+        Non-Homographs
+        ./secret/password.txt
+
+        Homographs
+        password.txt
+        /home/user/secret/password.txt
+
+    -- Unknown Folders --
+        Non-Homographs
+        /../../random/foldername/password.txt
+        /folder/randomname/password.txt
+        
+        Homographs
+
+
+All filepaths assume the current directory is /home/user/secret/
 """
 
 
@@ -85,7 +116,9 @@ def canonicalization(file_path, Full_File_Path):
 
     # Two dots .. in any part of file (../secret/password.txt)
     """If (two dots)
-        if the two dots start the string folderName = secret
+        if (the two dots start the string)
+            if (t)
+            folderName = secret
         else
         folderName = seperate between / and /.. (eg: /home/user/../secret would assign "user" to folderName)
         getOneFolderUp(fileName)
