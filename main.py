@@ -60,6 +60,9 @@
         ~/random/../secret/password.txt
 """
 
+from contextlib import nullcontext
+
+
 def manual_test(Full_File_Path):
     # Get both the file paths then run
     file_path1 = input('Specify the first filename: ')
@@ -133,19 +136,43 @@ def dot(file_path, Full_File_Path):
     return(file_path)
 
 def two_dots(file_path, Full_File_Path):
+    upCount = file_path.count('..')
     # ../../.. starts the path
     if file_path[:8] == "../../..":
         print("Error: Cannot go above home directory. Assumed starting directory is: /home/user/secret/")
     # ../../ starts the path
-    if file_path[:5] == "../..":
+    elif file_path[:5] == "../..":
         # Split to /home
         modified_file_path = Full_File_Path.split("user")[0]
         file_path = modified_file_path + file_path[6:]
     # .. is start of file path
-    if file_path[:2] == "..":
+    elif file_path[:2] == "..":
         # Split the file path to /home/user
         modified_file_path = Full_File_Path.split("secret")[0]
         file_path = modified_file_path + file_path[3:]
+    elif (upCount > 0):
+        seqUpCounts = 0 #The number of folders we must go up for one row of ../../'s
+        prevIsDot = false
+        prevIsDouble = false
+        numFolders = 0
+        upCountStart = 0
+        for x in file_path:
+            if x == "." & prevIsDot == true: #if this and the previous index are dots
+                seqUpCounts += 1
+                prevIsDouble = true
+            elif x == "." & prevIsDot == false: # if this one but not the last are dots
+                prevIsDot = true
+            elif x == "/": # slashes are used to count the folders weve passed through and mark where we start counting up
+                prevIsDot = False
+                if seqUpCounts == 1:
+                    upCountStart = numFolders
+                numFolders += 1
+            else: # If not a slash or a dot, reset the
+                prevIsDot = false
+                prevIsDouble = false
+                if seqUpCounts > 0:
+                    modified_file_path = Full_File_Path.split("/")[upCountStart] # not sure how but we need to split in two at the start of the upCount
+
     return file_path
 
 
