@@ -67,9 +67,9 @@ def manual_test(Full_File_Path):
     run_test(file_path1, file_path2, Full_File_Path)
 
 def test_cases(Full_File_Path):
-    homographs = ["password.txt", "/~/secret/password.txt", "/./password.txt", "/../secret/password.txt", "/~/random/../secret/password.txt", "/./user/secret/password.txt", "/./././user/secret/password.txt", "/./../secret/password.txt", "/../../user/secret/password.txt", "/~/../user/secret/password.txt", "/./Password/../password.txt", "/./password.txt"]
-    non_homographs = ["/../../random/foldername/password.txt", "/~/folder/randomname/password.txt", "/~/Secret/../secret/password.txt", "/./secret/password.txt", "/home/user/Secret/Password.txt", "passWord.txt", "/~/password.txt", "/../user/secret.txt", "/../../secret/password.txt", "/./secret/password.txt", "/./home/secret/password.txt", "/~/../password.txt", "/./user/secret/password.txt"]
-    forbidden_file = "/home/user/secret/password.txt"
+    homographs = ["password.txt", "~/secret/password.txt", "./password.txt", "../secret/password.txt", "~/random/../secret/password.txt", "./user/secret/password.txt", "./././user/secret/password.txt", "./../secret/password.txt", "../../user/secret/password.txt", "~/../user/secret/password.txt", "./Password/../password.txt", "./password.txt"]
+    non_homographs = ["../../random/foldername/password.txt", "~/folder/randomname/password.txt", "~/Secret/../secret/password.txt", "./secret/password.txt", "home/user/Secret/Password.txt", "passWord.txt", "~/password.txt", "../user/secret.txt", "../../secret/password.txt", "./secret/password.txt", "./home/secret/password.txt", "~/../password.txt", "./user/secret/password.txt"]
+    forbidden_file = "home/user/secret/password.txt"
 
     print("\nTESTING HOMOGRAPHS")
     # Homographs
@@ -128,8 +128,16 @@ def dot(file_path, Full_File_Path):
     return(file_path)
 
 def two_dots(file_path, Full_File_Path):
+    # ../../.. starts the path
+    if file_path[:7] == "../../..":
+        print("Error: Cannot go above home directory. Assumed starting directory is: /home/user/secret/")
+    # ../../ starts the path
+    if file_path[:4] == "../..":
+        # Split to /home
+        modified_file_path = Full_File_Path.split("/user")[0]
+        file_path = modified_file_path + file_path[5:]
     # .. is start of file path
-    if file_path[:2] == "..":
+    if file_path[:1] == "..":
         # Split the file path to /home/user
         modified_file_path = Full_File_Path.split("/secret")[0]
         file_path = modified_file_path + file_path[2:]
@@ -152,12 +160,11 @@ def canonicalization(file_path, Full_File_Path):
 
     # Two dots .. in any part of file (../secret/password.txt)
     file_path = two_dots(file_path, Full_File_Path)
-    """If (two dots)
-        if (the two dots start the string)
-            if (t)
-            folderName = secret
-        else
-        folderName = seperate between / and /.. (eg: /home/user/../secret would assign "user" to folderName)
+    """
+        if file_path[]
+
+
+
         getOneFolderUp(fileName)
         delete the /.. from the string
         delete the previous working directiory from the string (eg: in the above case, the string would read /home/secret after this point)
