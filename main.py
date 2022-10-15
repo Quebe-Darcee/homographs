@@ -67,7 +67,7 @@ def manual_test(Full_File_Path):
     run_test(file_path1, file_path2, Full_File_Path)
 
 def test_cases(Full_File_Path):
-    homographs = ["password.txt", "~/secret/password.txt", "./password.txt", "../secret/password.txt", "~/random/../secret/password.txt", "./user/secret/password.txt", "./././user/secret/password.txt", "./../secret/password.txt", "../../user/secret/password.txt", "~/../user/secret/password.txt", "./Password/../password.txt", "./password.txt"]
+    homographs = ["password.txt", "~/secret/password.txt", "/~/secret/password.txt","./password.txt", "../secret/password.txt", "~/random/../secret/password.txt", "./user/secret/password.txt", "./././user/secret/password.txt", "./../secret/password.txt", "../../user/secret/password.txt", "~/../user/secret/password.txt", "./Password/../password.txt"]
     non_homographs = ["/../../random/foldername/password.txt", "~/folder/randomname/password.txt", "~/Secret/../secret/password.txt", "./secret/password.txt", "home/user/Secret/Password.txt", "passWord.txt", "~/password.txt", "../user/secret.txt", "../../secret/password.txt", "./secret/password.txt", "./home/secret/password.txt", "~/../password.txt", "./user/secret/password.txt"]
     forbidden_file = "/home/user/secret/password.txt"
 
@@ -108,14 +108,19 @@ def run_test(file_path1, file_path2, Full_File_Path):
         return False
 
 # canonicalization for ~ (tilde)
-def tilde(file_path, File_Path):
+def tilde(file_path, Full_File_Path):
     # Look for if ~ is in the file path
-    if file_path.find("~") == 0:
+    if file_path.rfind("~") == 0:
         # Replace the ~ with the file path
-        file_path = File_Path.split("secret")[0] + file_path.split("~")[1][1:]
+        file_path = Full_File_Path.split("secret")[0] + file_path.split("~")[1][1:]
         return file_path
-    else: # do nothing
+    if file_path.rfind("~") > 0:
+        # Remove all the previous string before ~
+        file_path = file_path[file_path.rfind("~") - 1:]
+        file_path = Full_File_Path.split("secret")[0] + file_path.split("~")[1][1:]
         return file_path
+    # do nothing
+    return file_path
 
 # Canonicalization for ./
 def dot(file_path, Full_File_Path):
@@ -149,6 +154,7 @@ def canonicalization(file_path, Full_File_Path):
     if file_path[0] == "/":
         # test for if two dots are in middle (/home/user/../user/secret/)
 
+        file_path = tilde(file_path, Full_File_Path)
 
         return file_path
 
