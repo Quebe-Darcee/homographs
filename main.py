@@ -1,4 +1,8 @@
 """
+-- Canon --
+
+    /home/user/secret/password.txt
+
 --Test Cases--
 
     -- ./ --
@@ -7,7 +11,6 @@
 
         HomoGraphs
         ./password.txt
-        ./user/secret/password.txt
         
     -- ../ --
         Non-Homographs
@@ -15,40 +18,38 @@
         ../../secret/password.txt
 
         Homographs
-        ../password.txt
         ../secret/password.txt
 
     -- ~/ --
         Non-Homographs
         ~/password.txt
+        
         Homographs
         ~/secret/password
+
     -- Caps Sensitivity --
         Non-Homographs
         /home/user/Secret/Password.txt
         passWord.txt
 
         Homographs
-        
+        ~/Secret/../secret/password.txt
+
     -- Start Folder --
         Non-Homographs
         ./secret/password.txt
 
         Homographs
         password.txt
-        /home/user/secret/password.txt
 
     -- Unknown Folders --
         Non-Homographs
-        /../../random/foldername/password.txt
-        /folder/randomname/password.txt
+        ../../random/foldername/password.txt
+        ~/folder/randomname/password.txt
         
         Homographs
-
-
-All filepaths assume the current directory is /home/user/secret/
+        /~/random/../secret/password.txt
 """
-
 
 def manual_test(Full_File_Path):
     # Get both the file paths then run
@@ -59,8 +60,8 @@ def manual_test(Full_File_Path):
 def test_cases(Full_File_Path):
     # This needs to be worked on.....
     file_path1 = "password.txt"
-    homographs = ["password.txt", "/home/user/secret/password.txt", "./password.txt", "./user/secret/password.txt", "../password.txt", "../secret/password.txt", "~/secret/password"]
-    non_homographs = ["pasword.txt", "/home/user/Secret/Password.txt", "../user/secret.txt", "../../secret/password.txt", "./password.txt"]
+    homographs = ["/~/random/../secret/password.txt", "password.txt", "~/Secret/../secret/password.txt", "~/secret/password", "../secret/password.txt", "./password.txt"]
+    non_homographs = ["../../random/foldername/password.txt", "~/folder/randomname/password.txt", "./secret/password.txt", "/home/user/Secret/Password.txt", "passWord.txt", "~/password.txt", "../user/secret.txt", "../../secret/password.txt", "./secret/password.txt"]
 
     run_test(file_path1, homographs, Full_File_Path)
 
