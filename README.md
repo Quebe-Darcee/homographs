@@ -26,7 +26,6 @@ Path Homograph
 
         HomoGraphs
         ./password.txt
-        ./user/secret/password.txt
         
     -- ../ --
         Non-Homographs
@@ -34,12 +33,12 @@ Path Homograph
         ../../secret/password.txt
 
         Homographs
-        ../password.txt
         ../secret/password.txt
 
     -- ~/ --
         Non-Homographs
         ~/password.txt
+        
         Homographs
         ~/secret/password
 
