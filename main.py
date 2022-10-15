@@ -8,26 +8,30 @@
 
     -- ./ --
         Non-Homographs
-        ./secret/password.txt
-        
+        /./secret/password.txt
+        /./home/secret/password.txt
 
         HomoGraphs
-        ./password.txt
+        /./password.txt
+        /./../secret/password.txt
         
     -- ../ --
         Non-Homographs
-        ../user/secret.txt
-        ../../secret/password.txt
+        /../user/secret.txt
+        /../../secret/password.txt
 
         Homographs
-        ../secret/password.txt
+        /../secret/password.txt
+        /../../user/secret/password.txt
 
     -- ~/ --
         Non-Homographs
-        ~/password.txt
+        /~/password.txt
+        /~/../password.txt
         
         Homographs
-        ~/secret/password
+        /~/secret/password
+        /~/../user/secret/password.txt
 
     -- Caps Sensitivity --
         Non-Homographs
@@ -35,19 +39,22 @@
         passWord.txt
 
         Homographs
-        ~/secret/../secret/password.txt
+        /~/Secret/../secret/password.txt
+        /./Password/../password.txt
 
     -- Start Folder --
         Non-Homographs
-        ./secret/password.txt
+        /./secret/password.txt
+        /./user/secret/password.txt
 
         Homographs
         password.txt
+        /./password.txt
 
     -- Unknown Folders --
         Non-Homographs
-        ../../random/foldername/password.txt
-        ~/folder/randomname/password.txt
+        /../../random/foldername/password.txt
+        /~/folder/randomname/password.txt
         
         Homographs
         /~/random/../secret/password.txt
@@ -60,8 +67,8 @@ def manual_test(Full_File_Path):
     run_test(file_path1, file_path2, Full_File_Path)
 
 def test_cases(Full_File_Path):
-    homographs = ["password.txt", "~/secret/password.txt", "./password.txt", "../secret/password.txt", "/~/random/../secret/password.txt", "/./user/secret/password.txt", "/./././user/secret/password.txt"]
-    non_homographs = ["../../random/foldername/password.txt", "~/folder/randomname/password.txt", "~/Secret/../secret/password.txt", "./secret/password.txt", "/home/user/Secret/Password.txt", "passWord.txt", "~/password.txt", "../user/secret.txt", "../../secret/password.txt", "./secret/password.txt"]
+    homographs = ["password.txt", "/~/secret/password.txt", "/./password.txt", "/../secret/password.txt", "/~/random/../secret/password.txt", "/./user/secret/password.txt", "/./././user/secret/password.txt", "/./../secret/password.txt", "/../../user/secret/password.txt", "/~/../user/secret/password.txt", "/./Password/../password.txt", "/./password.txt"]
+    non_homographs = ["/../../random/foldername/password.txt", "/~/folder/randomname/password.txt", "/~/Secret/../secret/password.txt", "/./secret/password.txt", "/home/user/Secret/Password.txt", "passWord.txt", "/~/password.txt", "/../user/secret.txt", "/../../secret/password.txt", "/./secret/password.txt", "/./home/secret/password.txt", "/~/../password.txt", "/./user/secret/password.txt"]
     forbidden_file = "/home/user/secret/password.txt"
 
     print("\nTESTING HOMOGRAPHS")

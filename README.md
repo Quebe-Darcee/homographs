@@ -22,25 +22,30 @@ Path Homograph
 
     -- ./ --
         Non-Homographs
-        ./secret/password.txt
+        /./secret/password.txt
+        /./home/secret/password.txt
 
         HomoGraphs
-        ./password.txt
+        /./password.txt
+        /./../secret/password.txt
         
     -- ../ --
         Non-Homographs
-        ../user/secret.txt
-        ../../secret/password.txt
+        /../user/secret.txt
+        /../../secret/password.txt
 
         Homographs
-        ../secret/password.txt
+        /../secret/password.txt
+        /../../user/secret/password.txt
 
     -- ~/ --
         Non-Homographs
-        ~/password.txt
+        /~/password.txt
+        /~/../password.txt
         
         Homographs
-        ~/secret/password
+        /~/secret/password
+        /~/../user/secret/password.txt
 
     -- Caps Sensitivity --
         Non-Homographs
@@ -48,19 +53,22 @@ Path Homograph
         passWord.txt
 
         Homographs
-        ~/Secret/../secret/password.txt
+        /~/Secret/../secret/password.txt
+        /./Password/../password.txt
 
     -- Start Folder --
         Non-Homographs
-        ./secret/password.txt
+        /./secret/password.txt
+        /./user/secret/password.txt
 
         Homographs
         password.txt
+        /./password.txt
 
     -- Unknown Folders --
         Non-Homographs
-        ../../random/foldername/password.txt
-        ~/folder/randomname/password.txt
+        /../../random/foldername/password.txt
+        /~/folder/randomname/password.txt
         
         Homographs
         /~/random/../secret/password.txt
