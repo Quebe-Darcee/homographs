@@ -17,7 +17,7 @@ def canonicalize(path, working_directory, home_directory):
         if segment == "..":
             canonicalized_segments.pop()
         elif segment == "~":
-            return None
+            canonicalized_segments = home_segments.copy()
         elif segment == ".":
             pass
         else:

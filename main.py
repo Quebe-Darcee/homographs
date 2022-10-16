@@ -70,8 +70,8 @@ def manual_test(Full_File_Path):
     run_test(file_path1, file_path2, Full_File_Path)
 
 def test_cases(Full_File_Path):
-    homographs = ["password.txt", "~/secret/password.txt", "/~/secret/password.txt","./password.txt", "../secret/password.txt", "./user/secret/password.txt", "./././user/secret/password.txt", "./../secret/password.txt", "../../user/secret/password.txt", "~/../user/secret/password.txt", "./Password/../password.txt"]
-    non_homographs = ["../../random/foldername/password.txt", "~/folder/randomname/password.txt", "~/Secret/../secret/password.txt", "./secret/password.txt", "home/user/Secret/Password.txt", "passWord.txt", "~/password.txt", "../user/secret.txt", "../../secret/password.txt", "./secret/password.txt", "./home/secret/password.txt", "~/../password.txt", "./user/secret/password.txt", "../../../home/user/secret/password.txt"]
+    homographs = ["password.txt", "~/secret/password.txt", "/~/secret/password.txt","./password.txt", "~/Secret/../secret/password.txt", "../secret/password.txt", "./../secret/password.txt", "../../user/secret/password.txt", "~/../user/secret/password.txt", "./Password/../password.txt", "../../../home/user/secret/password.txt"]
+    non_homographs = ["../../random/foldername/password.txt", "~/folder/randomname/password.txt","./user/secret/password.txt", "./././user/secret/password.txt", "./secret/password.txt", "home/user/Secret/Password.txt", "passWord.txt", "~/password.txt", "../user/secret.txt", "../../secret/password.txt", "./secret/password.txt", "./home/secret/password.txt", "~/../password.txt", "./user/secret/password.txt"]
     forbidden_file = "/home/user/secret/password.txt"
 
     print("\nTESTING HOMOGRAPHS")
@@ -95,7 +95,7 @@ def test_cases(Full_File_Path):
 
 
 def run_test(file_path1, file_path2, Full_File_Path):
-    home_directory = "/home"
+    home_directory = "/home/user"
     file_path1 = canonicalize(file_path1, Full_File_Path, home_directory)
     file_path2 = canonicalize(file_path2, Full_File_Path, home_directory)
     # Compare the two final full file paths
@@ -235,7 +235,7 @@ def getOneFolderUp(folderName):
 
 
 
-Full_File_Path = "/home/user/secret/"
+Full_File_Path = "/home/user/secret"
 userinput = input("Please enter a number\n1. Enter the test cases manually\n2. Run the provided test cases\nChoice: ")
 if userinput == "1":
     manual_test(Full_File_Path)
