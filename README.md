@@ -6,13 +6,13 @@ Path Homograph
     
     ../ -Up one folder
     
-    ~/ -Home folder
+    ~/ -Home folder (/home/user/)
     
-    Caps Sensitivity
+    Caps Sensitivity - Linux distinguishes password different from Password
     
     Different starting folder
     
-    unknown filepaths
+    Unknown filepaths
 
 -- Canon --
 
